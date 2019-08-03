@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{% block title %}AbitVstup-Main{% endblock %}</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+</head>
+<body>
+	<div class="wrapper">
+		<header>
+			<div class="container top-line">
+				<div class="row">
+					<div class="logo">
+
+							<h1>
+								<i class="fas fa-graduation-cap"></i>
+								<span id="abit">Abit</span><span id="vstup">Vstup</span>
+
+							</h1>
+							<span id="downInfoForlogo">Information Page</span>
+
+					</div>
+					<div class="contacts">
+							<div class="row">
+							<h1 class="phone-number">
+							<i class="fas fa-phone"></i>
+							<span id="PhoneNumber">+38068-82-98-194</span>
+							</h1>
+							<h1 class="phone-number mail">
+								<i class="fas fa-envelope"></i>
+								<span id="mail"><a href="#">dmitrenkovolodimir@gmail.com</a></span>
+							</h1>
+							</div>
+
+					</div>
+				</div>
+
+			</div>
+
+
+		</header>
+		<div class="navigation bg-light">
+				<div class="container">
+				<nav class="navbar navbar-light  navbar-expand-lg pl-0 pt-3 pb-3">
+					<ul class="navbar-nav pl-0">
+						<li class="nav-item">
+							<a href="{% url 'regions' %}" class="nav-link">Home</a>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link">About</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'help' %}" class="nav-link">Help</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'doc' %}" class="nav-link">Documentation</a>
+						</li>
+					</ul>
+				</nav>
+				</div>
+			</div>
+		<main>
+            {% block content %}
+			<div class="slider">
+
+				<div class="slide-item" id="slide-first">
+					<div class="container">
+					<p class="slide-motto">
+						More Then Just <strong>Studying</strong>
+					</p>
+					</div>
+				</div>
+				<div class="slide-item" id="slide-second">
+					<div class="container">
+					<p class="slide-motto">
+						Create Your <strong>Future</strong>
+					</p>
+					</div>
+				</div>
+				<div class="slide-item" id="slide-third">
+					<div class="container">
+					<p class="slide-motto">
+						Believe In <strong>Yourself</strong>
+					</p>
+					</div>
+				</div>
+				<div class="slider-controllers">
+
+					<ul class="controllers">
+						<li class="controller active">1</li>
+						<li class="controller">2</li>
+						<li class="controller">3</li>
+					</ul>
+
+				</div>
+			</div>
+                <div class="regions">
+                    <div class="container">
+                        <h1 class="AbitHeader">Regions</h1>
+                        <ul class="region-list">
+                            {% for region in region_list %}
+                                <li class="AbitLink"><a href="{% url 'vnzs' pk=region.pk %}">{{ region.Region_name }}</a></li>
+                                
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+            {% endblock %}
+		</main>
+		<footer>
+			<div class="container">
+				<p>© 2019 All Rights Reserved</p>
+			</div>
+		</footer>
+	</div>
+
+
+
+
+
+
+
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="{% static 'script/slider.js' %}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+</body>
+</html>

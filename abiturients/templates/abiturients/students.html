@@ -1,0 +1,117 @@
+{% extends "abiturients/index.html" %}
+{% block content %}
+<div class="students">
+        <div class="container">
+            <h1 class="AbitHeader">{{ specialty.name_of_specialty }}</h1>
+            <div class="chart">
+                <canvas id="linechart"></canvas>
+            </div>
+            <ul class="region-list specialties-list">
+                {% for st in students %}
+                    <li class="AbitLink"><a href="#">{{ st.username}}  середній бал: {{ st.mark }}</a></li>
+                {% endfor %}
+            </ul>
+        <div class="pagination-list">
+
+                {% if students.has_other_pages %}
+                    <ul class="pagination">
+                        {% if students.has_previous %}
+                            <li class="arrow"><a href="?page={{ students.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in students.paginator.page_range %}
+                            {% if students.number == i %}
+                                 <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+
+                            {% else %}
+                                <li class="nonactive"><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if students.has_next %}
+                            <li class="arrow"><a href="?page={{ students.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+                $.ajax({
+                url:{% url 'statistic' %},
+                type:"GET",
+                data:{
+                    'pk':{{ specialty.pk }}
+                },
+                dataType:'json',
+                success: function (data) {
+                    console.log(data);
+                    marks = data['middles'];
+
+
+                    counts= data['counts'];
+
+                    console.log(counts);
+
+
+
+                    var ctx = document.getElementById('linechart');
+                    var linechart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: marks,
+                            datasets: [{
+                                label: 'statistic',
+                                data: counts,
+                                backgroundColor: [
+                                    'transparent',
+
+
+
+                                ],
+                                borderColor: [
+                                    'rgba(1,159,87,0.67)',
+                                ],
+                                borderWidth: 1,
+                                lineTension: 0,
+
+                            }]
+
+                        },
+                        options:{
+                            scales:{
+                                yAxes:[{
+                                    ticks:{
+                                        beginAtZero: true
+                                    }
+                                }],
+                                xAxes:[{
+                                    //categoryPercentage: 1.0,
+                                    barPercentage: 0.8,
+                                    gridLines: {
+                                    offsetGridLines: true
+                                }
+                                }]
+
+                            }
+                        }
+                    });
+
+
+
+                }
+
+            });
+
+
+
+
+        })
+    </script>
+{% endblock %}

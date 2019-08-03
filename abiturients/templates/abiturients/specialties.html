@@ -1,0 +1,124 @@
+{% extends 'abiturients/index.html' %}
+
+
+{% block content %}
+
+    <div class="specialties">
+        <div class="container" >
+            <h1 class="AbitHeader">{{ vnz.name }}</h1>
+            <div class="chart">
+                <canvas id="barchart"></canvas>
+            </div>
+            <ul class="region-list specialties-list">
+                {% for spec in specialties %}
+                    <li class="AbitLink"><a href="{% url 'abits' pk=spec.pk %}">{{ spec.name_of_specialty }} {{ spec.step }} {{ spec.count_of_abiturients }}</a></li>
+                {% endfor %}
+            </ul>
+
+        <div class="pagination-list">
+
+                {% if specialties.has_other_pages %}
+                    <ul class="pagination">
+                        {% if specialties.has_previous %}
+                            <li class="arrow"><a href="?page={{ specialties.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in specialties.paginator.page_range %}
+                            {% if specialties.number == i %}
+                                 <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+
+                            {% else %}
+                                <li class="nonactive"><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if specialties.has_next %}
+                            <li class="arrow"><a href="?page={{ specialties.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            </div>
+
+
+        </div>
+
+
+    </div>
+     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $.ajax({
+                url:{% url 'top5spec' %},
+                type:"GET",
+                data:{
+                    'pk':{{ vnz.pk }}
+                },
+                dataType:'json',
+                success: function (data) {
+                    specs = JSON.parse(data['specs']);
+                    //console.log(specs)
+                    names=[];
+                    counts= [];
+
+                    for(var i=0;i<specs.length;i++){
+                        names.push(specs[i]['fields']['name_of_specialty']);
+                        counts.push(specs[i]['fields']['students'].length);
+                    }
+                    var ctx = document.getElementById('barchart');
+                    var barchart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: names,
+                            datasets: [{
+                                label: 'top',
+                                data: counts,
+                                backgroundColor: [
+                                    'rgba(1,159,87,0.67)',
+                                    'rgba(1,159,87,0.67)',
+                                    'rgba(1,159,87,0.67)',
+                                    'rgba(1,159,87,0.67)',
+                                    'rgba(1,159,87,0.67)',
+
+
+                                ],
+                                borderColor: [
+
+                                ],
+                                borderWidth: 1,
+                                //lineTension: 0,
+
+                            }]
+
+                        },
+                        options:{
+                            scales:{
+                                yAxes:[{
+                                    ticks:{
+                                        beginAtZero: true
+                                    }
+                                }],
+                                xAxes:[{
+                                    //categoryPercentage: 1.0,
+                                    barPercentage: 0.7,
+                                    gridLines: {
+                                    offsetGridLines: true
+                                }
+                                }]
+
+                            }
+                        }
+                    });
+
+
+                }
+
+            });
+
+
+
+        })
+    </script>
+{% endblock %}

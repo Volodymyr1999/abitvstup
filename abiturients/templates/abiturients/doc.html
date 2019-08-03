@@ -1,0 +1,91 @@
+
+{% extends 'abiturients/index.html' %}
+{% block content %}
+
+    <div class="doc">
+        <div class="container">
+            <h1 class="AbitHeader">Документація</h1>
+
+            <div class="description">
+                <p class="about">
+                    Даний проект було збудовано з метою надати абітурієнтам інформацію про їхнє перебування в рейтингу абітурієнтів а також показати інформацію про ці заклади та спеціальності в них.
+                </p>
+                <p class="about">
+                    Для побудови даного проекту було використано багато різних технологій. Зокрема для розробки лицьової частини сайту (фронтенду) було використано мову розмітки HTML,
+                    таблицю стилів CSS, мову програмування JavaScript з її бібліотеками Jquery (<a href="https://jquery.com/">https://jquery.com/</a> )та Chart.js
+                    (<a href="https://www.chartjs.org/">https://www.chartjs.org/</a>), також CSS фреймворк Bootstrap 4.0 який розроблений компанією Twitter для полегшення роботи з адаптивністю сайту. Детальнішу інформацію про фреймворк можна отримати за посиланням
+                    <a href="https://getbootstrap.com/">https://getbootstrap.com/</a>.
+                </p>
+                <p class="about">
+                    Для реалізації серверної частини сайту(бекенд) було використано мову програмування пайтон, оскільки  вона непогано себе показує в веб розробці і її веб-фреймворк Django 2.2.1.
+                    <a href="https://www.djangoproject.com/">https://www.djangoproject.com/</a>Щоб отримати детальнішу інфорацію перейдіть за посиланням
+                    <a href="https://www.python.org/
+                    ">https://www.python.org/
+                    </a>.
+                    З реляційних баз даних було використано PostgresSql 10.0
+                    <a href="https://www.postgresql.org/">https://www.postgresql.org/</a>.
+                </p>
+                <p class="about">
+                    Для зберігання даних в базі даних було побудовано 5 основних таблиць: <b>abiturients_region,</b> <b>abiturients_specialty,</b><b>abiturients_vnz,</b><b>abiturients_subject,</b> <b>abiturients_abiturient_statement</b>.
+                    До дотаткових таблиць належать таблиці створені зв’язками основних таблиць, а також таблиці створені фреймворком Django по замовчуванню <b>auth_user,</b> <b>auth_group,</b> <b>permissions,</b> <b>sessions</b> для підтримки аунтефікації,авторизації та сесій. Основні налаштування бази даних знаходяться на малюнку.
+                    {% load static %}
+                    <img class="centrimg" src="{% static 'css/images/viber image 2019-05-20 , 22.33.13.jpg' %}" alt="">
+                </p>
+                <p class="about">
+                    За допомогою django ORM ми можемо представити таблиці у вигляді класів.
+                    Розглянемо кожну із 5-ти основних таблиць.
+                </p>
+                <p class="about">
+                    <strong>Region</strong>
+                    <p class="d-flex">
+                    <img src="{% static 'css/images/viber image 2019-05-20 , 22.36.26.jpg' %}" alt="" style="width: 40%">
+                    <img src="{% static 'css/images/viber image 2019-05-20 , 22.44.35.jpg' %}" alt="" style="width: 60%">
+
+                    </p>
+                </p>
+                <p class="about">
+                    <stro>VNZ</stro>
+                    <p class="d-flex">
+                    <img src="{% static 'css/images/viber image 2019-05-20 , 22.36.57.jpg' %}" alt="" style="width: 40%">
+                    <img src="{% static 'css/images/viber image 2019-05-20 , 22.46.01.jpg' %}" alt="" style="width: 60%">
+
+                    </p>
+                </p>
+
+                <p class="about">
+                    <stro>Abiturient Statement</stro>
+                    <p class="d-flex">
+                    <img src="{% static 'css/images/viber image 2019-05-20 , 22.40.13.jpg' %}" alt="" style="width: 40%">
+                    <img src="{% static 'css/images/viber image 2019-05-20 , 22.41.32.jpg' %}" alt="" style="width: 60%">
+
+                    </p>
+                </p>
+                <p class="about">
+                    Фреймворк Django працює за принципом MVT аналог MVC тільки замість терміна Controller в Django прийнято вживати термін Template. Так база даних з таблицями вже готова, потрібно  ці дані якось представити. Для цього було побудовано спеціальні функції(Views).
+                </p>
+                
+                <p class="about">
+                    Дані було використано з сайтів <a href="http://www.vstup.info/">http://www.vstup.info/</a>,<a
+                        href="https://abit-poisk.org.ua/">https://abit-poisk.org.ua/</a>.
+                </p>
+                <p class="about">
+                    Так як API у них відсутнє потрібно якось спарсити цю інформацію. Для цього була знову використана мова python з її бібліотекою BeautifulSoup 4.0.
+                    <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">https://www.crummy.com/software/BeautifulSoup/bs4/doc/</a>
+                </p>
+
+                <p class="about">
+                    Для візуалізації даних було використано бібліотеку Chart.js. В ній є багато готових шаблонів для діаграм і графіків.
+                </p>
+                <p class="about">
+                    <img src="{% static 'css/images/diagram.jpg' %}" alt="" style="width: 50%" class="centrimg">
+                    Для побудови діаграми ми вибираємо 5 спеціальностей з найбільшою к-стю студентів та сортуємо їх по іменах потім візуалізуємо ці дані з типом Bar.
+                </p>
+                <p class="about">
+                    <img src="{% static 'css/images/polygon.jpg' %}" alt="" style="width: 50%" class="centrimg">
+                    Для побудови графіка полігону частот ми вираємо всіх абітурієнтів з заданої спеціальності, сортуємо їх по середньому балу. Розбиваємо бали на проміжки і підраховуємо кількість студениів які входять в ці проміжки. Потім рахуємо середнє арифметичне кожного проміжку і передаємо дані через JSON формат і будуємо по цих даних графік з типом “line”.
+                </p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

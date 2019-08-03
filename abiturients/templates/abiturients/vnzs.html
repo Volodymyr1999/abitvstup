@@ -1,0 +1,126 @@
+{% extends "abiturients/index.html" %}
+
+{% block content %}
+    <div class="vnzs">
+        <div class="container">
+            <h1 class="AbitHeader">{{ region.Region_name }}</h1>
+                        <div class="statistic-cards">
+                            <ul class="cards d-flex">
+
+                                <li class="card">
+                                    <span class="header">Університети</span>
+                                    <span id="vnzs">0</span>
+                                </li>
+                                <li class="card">
+                                    <span class="header">Академії</span>
+                                    <span id="academy">0</span>
+                                </li>
+                                <li class="card">
+                                    <span class="header">Інститути</span>
+                                    <span id="institute">0</span>
+                                </li>
+                                <li class="card">
+                                    <span class="header">Коледжі</span>
+                                    <span id="college">0</span>
+                                </li>
+                                <li class="card">
+                                    <span class="header">Інші</span>
+                                    <span id="else">0</span>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <ul class="region-list">
+                            {% for vnz in vnzs %}
+                                <li class="AbitLink"><a href="{% url 'specialties' pk=vnz.pk %}">{{ vnz.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+
+            <div class="pagination-list">
+
+                {% if vnzs.has_other_pages %}
+                    <ul class="pagination">
+                        {% if vnzs.has_previous %}
+                            <li class="arrow"><a href="?page={{ vnzs.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in vnzs.paginator.page_range %}
+                            {% if vnzs.number == i %}
+                                 <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+
+                            {% else %}
+                                <li class="nonactive"><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if vnzs.has_next %}
+                            <li class="arrow"><a href="?page={{ vnzs.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+        $(function () {
+
+
+
+            var targetBlock=$(".cards");
+            var blockStatus = true;
+
+
+                var scrollEvent = ($(window).scrollTop()>(targetBlock.position().top-$(window).height()));
+
+                if(blockStatus){
+                    blockStatus=false;
+
+
+
+                    $.ajax({
+                    url: "{% url 'stat'%}",
+                    type: "GET",
+                    data:{
+                        'pk': {{ region.pk }}
+                    },
+                    dataType:'json',
+                    success: function (data) {
+
+                         var un=JSON.parse(data['ucount']);
+                         var ak=JSON.parse(data['acount']);
+                         var ins=JSON.parse(data['icount']);
+                         var col=JSON.parse(data['colcount']);
+                         var els=JSON.parse(data['elsecount']);
+
+                         anim(un,$('#vnzs'));
+                         anim(ak,$('#academy'));
+                         anim(ins,$('#institute'));
+                         anim(col,$('#college'));
+                         anim(els,$('#else'));
+
+
+
+                    }
+                    });
+
+                }
+
+
+            function anim(data,el) {
+                $({numberValue:0}).animate({numberValue: data},{
+                    duration:700,
+
+                    step: function (val) {
+                        el.html(Math.ceil(val));
+                    }
+
+                })
+
+            }
+        })
+    </script>
+{% endblock %}

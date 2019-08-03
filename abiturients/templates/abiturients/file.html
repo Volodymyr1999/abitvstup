@@ -1,0 +1,59 @@
+{% extends 'abiturients/index.html' %}
+{% block content %}
+<style>
+
+
+
+    img{
+
+
+        margin-top: 3rem;
+
+        width:100%;
+    }
+
+</style>
+<div class="help">
+<div class="container">
+    <h1>Починаємо</h1>
+    <p class="about">Даний проект було збудовано з метою надати абітурієнтам інформацію про їхнє перебування в рейтингу абітурієнтів,
+        а також показати інформацію про ці заклади та спеціальності в них.</p>
+    <h1>AbitVstup в дії</h1>
+    <li class="helpli">
+        <span class="help-desc">Відкривши наш проект ми потрапляємо на головну сторінку сайту AbitVstup</span>
+        {% load static %}
+        <p class="about"><img src="{% static 'css/static resources/зображення_viber_2019-05-20_19-58-53.jpg' %}"></p>
+    </li>
+    <li class="helpli">
+        <span class="help-desc">Щоб переключити слайдер необхідно натиснути на цифри,які розміщені на картинці,так як це зроблено в наступному скріншоті</span>
+        <p><img src="{% static 'css/static resources/зображення_viber_2019-05-20_19-58-59.jpg' %}"></p>
+    </li>
+    <li class="helpli">
+        <span class="help-desc">Погортавши скролом вниз ми побачимо області в яких містяться ВНЗи</span>
+        <p class="about"><img src="{% static 'css/static resources/зображення_viber_2019-05-20_19-59-50.jpg' %}"></p>
+    </li>
+    <li class="helpli">
+        <span class="help-desc">З переліку ми можемо натиснути на необхідну нам область і отримати інформацію про її заклади</span>
+        <p class="about"><img src="{% static 'css/static resources/зображення_viber_2019-05-20_20-00-42.jpg' %}"></p>
+    </li>
+    <li class="helpli">
+        <span class="help-desc">Кожен ВНЗ містить діаграму з top 5 спеціальностей</span>
+        <p class="about"><img src="{% static 'css/static resources/зображення_viber_2019-05-20_21-50-07.jpg' %}"></p>
+    </li>
+    <li class="helpli">
+        <span class="help-desc">Нижче вищезгаданої діаграми ми можемо натрапити на перелік спеціальностей</span>
+        <p class="about"><img src="{% static 'css/static resources/зображення_viber_2019-05-20_21-59-05.jpg' %}"></p>
+    </li>
+    <li class="helpli">
+        <span class="help-desc">Сайт надає нам можливість, натиснувши на одну із спеціальностей,
+            переглянути абітурієнтів із їхніми середніми балами, а також діаграму яка побудована на основі їхніх даних</span>
+        <p class="about"><img src="{% static 'css/static resources/зображення_viber_2019-05-20_21-59-27.jpg' %}">
+            <img src="{% static 'css/static resources/зображення_viber_2019-05-20_22-23-30.jpg' %}">
+        </p>
+    </li>
+
+
+</div>
+</div>
+
+{% endblock %}
